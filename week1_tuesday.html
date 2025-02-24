@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
-<html lang=""en"">
+<html lang="en">
 <head>
-    <meta charset=""UTF-8"">
-    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-    <title>Tuesday – Low-Impact Cardio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monday – Full-Body Strength</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,42 +66,22 @@
 </head>
 <body>
 
-    <h1>Tuesday – Low-Impact Cardio</h1>
-    <div id=""exercise"">Press Start to Begin</div>
-    <div id=""timer"">00:00</div>
+    <h1>Monday – Full-Body Strength</h1>
+    <div id="exercise">Press Start to Begin</div>
+    <div id="timer">00:00</div>
 
-    <div id=""progress-container"">
-        <div id=""progress-bar""></div>
+    <div id="progress-container">
+        <div id="progress-bar"></div>
     </div>
 
-    <div id=""overall-timer"">Total Time Left: 00:00</div>
-    <button class=""start-btn"" onclick=""startWorkout()"">Start Workout</button>
-    <button class=""pause-btn"" onclick=""pauseResumeWorkout()"">Pause</button>
-    <button class=""next-btn"" onclick=""skipToNextExercise()"">Next</button>
-    <button class=""stop-btn"" onclick=""stopWorkout()"">Stop</button>
+    <div id="overall-timer">Total Time Left: 00:00</div>
+    <button class="start-btn" onclick="startWorkout()">Start Workout</button>
+    <button class="pause-btn" onclick="pauseResumeWorkout()">Pause</button>
+    <button class="next-btn" onclick="skipToNextExercise()">Next</button>
+    <button class="stop-btn" onclick="stopWorkout()">Stop</button>
 
     <script>
-        const workoutPlan = [
-            {""exercise"": ""March in Place"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Arm Swings"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Torso Twists"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""High Knees"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Jumping Jacks"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Mountain Climbers"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Bodyweight Lunges"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Rest"", ""duration"": 60, ""type"": ""rest""},
-            {""exercise"": ""High Knees"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Jumping Jacks"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Mountain Climbers"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Bodyweight Lunges"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Rest"", ""duration"": 60, ""type"": ""rest""},
-            {""exercise"": ""High Knees"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Jumping Jacks"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Mountain Climbers"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Bodyweight Lunges"", ""duration"": 60, ""type"": ""active""},
-            {""exercise"": ""Rest"", ""duration"": 60, ""type"": ""rest""},
-            {""exercise"": ""Deep Breathing and Stretching"", ""duration"": 180, ""type"": ""active""}
-        ];
+        const workoutPlan = [{"exercise": "Jumping Jacks", "duration": 30, "type": "active"}, {"exercise": "Arm Circles", "duration": 30, "type": "active"}, {"exercise": "Bodyweight Squats", "duration": 30, "type": "active"}, {"exercise": "Jumping Jacks", "duration": 30, "type": "active"}, {"exercise": "Arm Circles", "duration": 30, "type": "active"}, {"exercise": "Bodyweight Squats", "duration": 30, "type": "active"}, {"exercise": "Rest", "duration": 30, "type": "rest"}, {"exercise": "Dumbbell Squats", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Push-Ups", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Bent-Over Rows", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Glute Bridges with Dumbbell", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Plank Hold", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Dumbbell Squats", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Push-Ups", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Bent-Over Rows", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Glute Bridges with Dumbbell", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Plank Hold", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Dumbbell Squats", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Push-Ups", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Bent-Over Rows", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Glute Bridges with Dumbbell", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Plank Hold", "duration": 40, "type": "active"}, {"exercise": "Rest", "duration": 20, "type": "rest"}, {"exercise": "Quad Stretch", "duration": 60, "type": "active"}, {"exercise": "Hamstring Stretch", "duration": 60, "type": "active"}, {"exercise": "Shoulder Stretch", "duration": 60, "type": "active"}];
 
         let currentIndex = 0;
         let timeLeft = 0;
@@ -118,31 +98,31 @@
 
         function stopWorkout() {
             clearInterval(timerInterval);
-            document.getElementById(""exercise"").innerText = ""Workout Stopped"";
-            document.getElementById(""timer"").innerText = ""00:00"";
-            document.getElementById(""overall-timer"").innerText = ""Total Time Left: 00:00"";
-            document.getElementById(""progress-bar"").style.width = ""0%"";
-            document.body.style.backgroundColor = ""#f4f4f4"";
+            document.getElementById("exercise").innerText = "Workout Stopped";
+            document.getElementById("timer").innerText = "00:00";
+            document.getElementById("overall-timer").innerText = "Total Time Left: 00:00";
+            document.getElementById("progress-bar").style.width = "0%";
+            document.body.style.backgroundColor = "#f4f4f4";
             isPaused = false;
         }
 
         function nextExercise() {
             if (currentIndex < workoutPlan.length) {
                 const current = workoutPlan[currentIndex];
-                document.getElementById(""exercise"").innerText = current.exercise;
+                document.getElementById("exercise").innerText = current.exercise;
                 timeLeft = current.duration;
                 totalDuration = current.duration;
 
-                document.body.style.backgroundColor = current.type === ""active"" ? ""#4CAF50"" : ""#f44336"";
+                document.body.style.backgroundColor = current.type === "active" ? "#4CAF50" : "#f44336";
 
                 updateTimer();
                 timerInterval = setInterval(updateTimer, 1000);
             } else {
-                document.getElementById(""exercise"").innerText = ""Workout Complete! 💪"";
-                document.getElementById(""timer"").innerText = ""00:00"";
-                document.getElementById(""overall-timer"").innerText = ""Total Time Left: 00:00"";
-                document.getElementById(""progress-bar"").style.width = ""100%"";
-                alert(""Great job! You finished the workout."");
+                document.getElementById("exercise").innerText = "Workout Complete! 💪";
+                document.getElementById("timer").innerText = "00:00";
+                document.getElementById("overall-timer").innerText = "Total Time Left: 00:00";
+                document.getElementById("progress-bar").style.width = "100%";
+                alert("Great job! You finished the workout.");
             }
         }
 
@@ -151,14 +131,14 @@
                 if (timeLeft > 0) {
                     const mins = Math.floor(timeLeft / 60);
                     const secs = timeLeft % 60;
-                    document.getElementById(""timer"").innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                    document.getElementById("timer").innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
                     const overallMins = Math.floor(overallTimeLeft / 60);
                     const overallSecs = overallTimeLeft % 60;
-                    document.getElementById(""overall-timer"").innerText = `Total Time Left: ${String(overallMins).padStart(2, '0')}:${String(overallSecs).padStart(2, '0')}`;
+                    document.getElementById("overall-timer").innerText = `Total Time Left: ${String(overallMins).padStart(2, '0')}:${String(overallSecs).padStart(2, '0')}`;
 
                     const progressPercent = ((totalDuration - timeLeft) / totalDuration) * 100;
-                    document.getElementById(""progress-bar"").style.width = `${progressPercent}%`;
+                    document.getElementById("progress-bar").style.width = `${progressPercent}%`;
 
                     timeLeft--;
                     overallTimeLeft--;
@@ -175,9 +155,9 @@
             const pauseButton = document.querySelector('.pause-btn');
             if (isPaused) {
                 clearInterval(timerInterval);
-                pauseButton.innerText = ""Resume"";
+                pauseButton.innerText = "Resume";
             } else {
-                pauseButton.innerText = ""Pause"";
+                pauseButton.innerText = "Pause";
                 timerInterval = setInterval(updateTimer, 1000);
             }
         }
@@ -191,4 +171,3 @@
 
 </body>
 </html>
-
