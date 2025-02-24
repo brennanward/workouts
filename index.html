@@ -67,10 +67,10 @@
 
     <script>
         const weekDates = {
-            week1: { start: new Date('2025-02-24'), end: new Date('2025-02-28') },
-            week2: { start: new Date('2025-03-03'), end: new Date('2025-03-07') },
-            week3: { start: new Date('2025-03-10'), end: new Date('2025-03-14') },
-            week4: { start: new Date('2025-03-17'), end: new Date('2025-03-21') }
+            week1: { start: new Date('2025-02-24T00:00:00'), end: new Date('2025-02-28T00:00:00') },
+            week2: { start: new Date('2025-03-03T00:00:00'), end: new Date('2025-03-07T00:00:00') },
+            week3: { start: new Date('2025-03-10T00:00:00'), end: new Date('2025-03-14T00:00:00') },
+            week4: { start: new Date('2025-03-17T00:00:00'), end: new Date('2025-03-21T00:00:00') }
         };
 
         const dayNames = ["monday", "tuesday", "wednesday", "thursday", "friday"];
@@ -80,17 +80,17 @@
         function updateLinks() {
             const week = document.getElementById("week-select").value;
             const selectedWeek = weekDates[week];
-            const weekStart = selectedWeek.start;
-            const weekEnd = selectedWeek.end;
+            const weekStart = new Date(selectedWeek.start); // Create new Date object
+            const weekEnd = new Date(selectedWeek.end);
 
             // Update heading with actual week range
             document.getElementById("week-dates").innerText = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
 
-            // Update buttons with day names and dates
+            // Update buttons with day names and correct dates
             dayNames.forEach((day, index) => {
                 const btn = document.getElementById(`${day}-btn`);
                 const workoutDay = new Date(weekStart);
-                workoutDay.setDate(weekStart.getDate() + index);  // Fixed date offset
+                workoutDay.setDate(weekStart.getDate() + index); // Ensure accurate day shift
                 const formattedDate = formatDate(workoutDay);
 
                 btn.innerText = `${dayLabels[index]} (${formattedDate})`;
