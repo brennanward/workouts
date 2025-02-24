@@ -1,56 +1,59 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Timer Hub</title>
+    <title>Workout Timer - Index</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 1.2rem;
-            color: #555;
-        }
-        .button-container {
-            margin-top: 40px;
-        }
-        a {
-            display: inline-block;
-            margin: 10px;
-            padding: 15px 30px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            transition: background-color 0.3s;
-        }
-        a:hover {
-            background-color: #45a049;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; }
+        h1 { font-size: 2rem; }
+        select, button { padding: 10px 20px; font-size: 1rem; margin: 10px; cursor: pointer; }
+        .day-buttons { margin-top: 20px; }
+        .day-buttons button { display: block; width: 200px; margin: 5px auto; }
     </style>
 </head>
 <body>
 
-    <h1>Workout Timer Hub 💪</h1>
-    <p>Select a day's workout timer below:</p>
+    <h1>Workout Timer</h1>
+    <p>Select a week and then choose a day:</p>
 
-    <div class="button-container">
-        <a href="monday_workout.html" target="_blank">Monday Workout</a>
-        <a href="tuesday_workout.html" target="_blank">Tuesday Workout</a>
-        <a href="wednesday_workout.html" target="_blank">Wednesday Workout</a>
-        <a href="thursday_workout.html" target="_blank">Thursday Workout</a>
-        <a href="friday_workout.html" target="_blank">Friday Workout</a>
+    <select id="week-select" onchange="updateLinks()">
+        <option value="week1">Week 1</option>
+        <option value="week2">Week 2</option>
+        <option value="week3">Week 3</option>
+        <option value="week4">Week 4</option>
+    </select>
+
+    <div class="day-buttons">
+        <button onclick="goToWorkout('monday')">Monday</button>
+        <button onclick="goToWorkout('tuesday')">Tuesday</button>
+        <button onclick="goToWorkout('wednesday')">Wednesday</button>
+        <button onclick="goToWorkout('thursday')">Thursday</button>
+        <button onclick="goToWorkout('friday')">Friday</button>
+        <button onclick="goToWorkout('saturday')">Saturday</button>
+        <button onclick="goToWorkout('sunday')">Sunday</button>
     </div>
+
+    <script>
+        function updateLinks() {
+            const week = document.getElementById("week-select").value;
+            const buttons = document.querySelectorAll(".day-buttons button");
+            buttons.forEach(button => {
+                const day = button.textContent.toLowerCase();
+                button.setAttribute("data-link", `${week}_${day}.html`);
+            });
+        }
+
+        function goToWorkout(day) {
+            const week = document.getElementById("week-select").value;
+            const link = `${week}_${day}.html`;
+            window.location.href = link;
+        }
+
+        // Initialize links on page load
+        window.onload = updateLinks;
+    </script>
 
 </body>
 </html>
