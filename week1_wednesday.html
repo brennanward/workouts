@@ -105,4 +105,106 @@
             { "exercise": "Push-Ups", "duration": 60, "type": "active" },
             { "exercise": "Bicep Curls", "duration": 60, "type": "active" },
             { "exercise": "Tricep Dips", "duration": 60, "type": "active" },
-            { "exercise": "Superman Hold", "
+            { "exercise": "Superman Hold", "duration": 30, "type": "active" },
+            { "exercise": "Rest", "duration": 30, "type": "rest" },
+
+            { "exercise": "Overhead Press", "duration": 60, "type": "active" },
+            { "exercise": "Push-Ups", "duration": 60, "type": "active" },
+            { "exercise": "Bicep Curls", "duration": 60, "type": "active" },
+            { "exercise": "Tricep Dips", "duration": 60, "type": "active" },
+            { "exercise": "Superman Hold", "duration": 30, "type": "active" },
+            { "exercise": "Rest", "duration": 30, "type": "rest" },
+
+            // Cooldown
+            { "exercise": "Arm Stretches", "duration": 90, "type": "active" },
+            { "exercise": "Shoulder Stretches", "duration": 90, "type": "active" }
+        ];
+
+        let currentIndex = 0;
+        let timeLeft = 0;
+        let totalDuration = 0;
+        let overallTimeLeft = workoutPlan.reduce((sum, ex) => sum + ex.duration, 0);
+        let timerInterval = null;
+        let isPaused = false;
+
+        function startWorkout() {
+            currentIndex = 0;
+            overallTimeLeft = workoutPlan.reduce((sum, ex) => sum + ex.duration, 0);
+            nextExercise();
+        }
+
+        function stopWorkout() {
+            clearInterval(timerInterval);
+            document.getElementById("exercise").innerText = "Workout Stopped";
+            document.getElementById("timer").innerText = "00:00";
+            document.getElementById("overall-timer").innerText = "Total Time Left: 00:00";
+            document.getElementById("progress-bar").style.width = "0%";
+            document.body.style.backgroundColor = "#f4f4f4";
+            isPaused = false;
+        }
+
+        function nextExercise() {
+            if (currentIndex < workoutPlan.length) {
+                const current = workoutPlan[currentIndex];
+                document.getElementById("exercise").innerText = current.exercise;
+                timeLeft = current.duration;
+                totalDuration = current.duration;
+
+                document.body.style.backgroundColor = current.type === "active" ? "#4CAF50" : "#f44336";
+
+                updateTimer();
+                timerInterval = setInterval(updateTimer, 1000);
+            } else {
+                document.getElementById("exercise").innerText = "Workout Complete! 💪";
+                document.getElementById("timer").innerText = "00:00";
+                document.getElementById("overall-timer").innerText = "Total Time Left: 00:00";
+                document.getElementById("progress-bar").style.width = "100%";
+                alert("Great job! You finished the workout.");
+            }
+        }
+
+        function updateTimer() {
+            if (!isPaused) {
+                if (timeLeft > 0) {
+                    const mins = Math.floor(timeLeft / 60);
+                    const secs = timeLeft % 60;
+                    document.getElementById("timer").innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+                    const overallMins = Math.floor(overallTimeLeft / 60);
+                    const overallSecs = overallTimeLeft % 60;
+                    document.getElementById("overall-timer").innerText = `Total Time Left: ${String(overallMins).padStart(2, '0')}:${String(overallSecs).padStart(2, '0')}`;
+
+                    const progressPercent = ((totalDuration - timeLeft) / totalDuration) * 100;
+                    document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+
+                    timeLeft--;
+                    overallTimeLeft--;
+                } else {
+                    clearInterval(timerInterval);
+                    currentIndex++;
+                    nextExercise();
+                }
+            }
+        }
+
+        function pauseResumeWorkout() {
+            isPaused = !isPaused;
+            const pauseButton = document.querySelector('.pause-btn');
+            if (isPaused) {
+                clearInterval(timerInterval);
+                pauseButton.innerText = "Resume";
+            } else {
+                pauseButton.innerText = "Pause";
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
+        function skipToNextExercise() {
+            clearInterval(timerInterval);
+            currentIndex++;
+            nextExercise();
+        }
+    </script>
+
+</body>
+</html>
