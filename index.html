@@ -29,7 +29,7 @@
         }
         .day-buttons button {
             display: block;
-            width: 200px;
+            width: 250px;
             margin: 5px auto;
         }
         .disabled {
@@ -49,13 +49,13 @@
     <p>Select a week to view your workouts:</p>
 
     <select id="week-select" onchange="updateLinks()">
-        <option value="week1">Week 1 (Feb 24 - Feb 28)</option>
-        <option value="week2">Week 2 (Mar 3 - Mar 7)</option>
-        <option value="week3">Week 3 (Mar 10 - Mar 14)</option>
-        <option value="week4">Week 4 (Mar 17 - Mar 21)</option>
+        <option value="week1">Week 1</option>
+        <option value="week2">Week 2</option>
+        <option value="week3">Week 3</option>
+        <option value="week4">Week 4</option>
     </select>
 
-    <h2 id="week-dates">Feb 24 - Feb 28</h2>
+    <h2 id="week-dates"></h2>
 
     <div class="day-buttons">
         <button id="monday-btn" onclick="goToWorkout('monday')">Monday</button>
@@ -74,22 +74,22 @@
         };
 
         const dayNames = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+        const dayLabels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
         const today = new Date();
 
         function updateLinks() {
             const week = document.getElementById("week-select").value;
             const selectedWeek = weekDates[week];
             const weekStart = selectedWeek.start;
-            const weekEnd = selectedWeek.end;
 
-            // Update heading with actual dates
-            document.getElementById("week-dates").innerText = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
-
-            // Enable/disable buttons based on current date
+            // Update buttons with day names and dates
             dayNames.forEach((day, index) => {
                 const btn = document.getElementById(`${day}-btn`);
                 const workoutDay = new Date(weekStart);
                 workoutDay.setDate(workoutDay.getDate() + index);
+                const formattedDate = formatDate(workoutDay);
+
+                btn.innerText = `${dayLabels[index]} (${formattedDate})`;
 
                 if (today >= workoutDay) {
                     btn.classList.remove("disabled");
@@ -109,7 +109,7 @@
         }
 
         function formatDate(date) {
-            const options = { month: 'short', day: 'numeric' };
+            const options = { month: 'long', day: 'numeric' };
             return date.toLocaleDateString('en-US', options);
         }
 
