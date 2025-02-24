@@ -1,15 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wednesday – Upper Body Strength</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+            transition: background-color 0.5s ease;
+        }
+        #exercise {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 30px 0;
+        }
+        #timer, #overall-timer {
+            font-size: 3rem;
+            margin: 20px 0;
+        }
+        #progress-container {
+            width: 80%;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin: 20px auto;
+            height: 30px;
+            overflow: hidden;
+        }
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #76c7c0;
+            transition: width 0.5s linear;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .start-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .stop-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+        .next-btn {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+        }
+        .pause-btn {
+            background-color: #FFC107;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
 
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Week1 - Wednesday</title>
-        </head>
-        <body>
-            <h1>Week1 - Wednesday Workout</h1>
-            <p>This is a placeholder for the Week1 Wednesday workout.</p>
-            <a href="index.html">Back to Index</a>
-        </body>
-        </html>
-        
+    <h1>Wednesday – Upper Body Strength</h1>
+    <div id="exercise">Press Start to Begin</div>
+    <div id="timer">00:00</div>
+
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <div id="overall-timer">Total Time Left: 00:00</div>
+    <button class="start-btn" onclick="startWorkout()">Start Workout</button>
+    <button class="pause-btn" onclick="pauseResumeWorkout()">Pause</button>
+    <button class="next-btn" onclick="skipToNextExercise()">Next</button>
+    <button class="stop-btn" onclick="stopWorkout()">Stop</button>
+
+    <script>
+        const workoutPlan = [
+            // Warm-Up
+            { "exercise": "Arm Circles", "duration": 60, "type": "active" },
+            { "exercise": "Shoulder Rolls", "duration": 60, "type": "active" },
+            { "exercise": "Wrist Stretches", "duration": 60, "type": "active" },
+
+            // Main Workout (4 Rounds)
+            { "exercise": "Overhead Press", "duration": 60, "type": "active" },
+            { "exercise": "Push-Ups", "duration": 60, "type": "active" },
+            { "exercise": "Bicep Curls", "duration": 60, "type": "active" },
+            { "exercise": "Tricep Dips", "duration": 60, "type": "active" },
+            { "exercise": "Superman Hold", "duration": 30, "type": "active" },
+            { "exercise": "Rest", "duration": 30, "type": "rest" },
+
+            { "exercise": "Overhead Press", "duration": 60, "type": "active" },
+            { "exercise": "Push-Ups", "duration": 60, "type": "active" },
+            { "exercise": "Bicep Curls", "duration": 60, "type": "active" },
+            { "exercise": "Tricep Dips", "duration": 60, "type": "active" },
+            { "exercise": "Superman Hold", "duration": 30, "type": "active" },
+            { "exercise": "Rest", "duration": 30, "type": "rest" },
+
+            { "exercise": "Overhead Press", "duration": 60, "type": "active" },
+            { "exercise": "Push-Ups", "duration": 60, "type": "active" },
+            { "exercise": "Bicep Curls", "duration": 60, "type": "active" },
+            { "exercise": "Tricep Dips", "duration": 60, "type": "active" },
+            { "exercise": "Superman Hold", "
