@@ -1,9 +1,10 @@
-"<!DOCTYPE html>
+"
+<!DOCTYPE html>
 <html lang=""en"">
 <head>
     <meta charset=""UTF-8"">
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-    <title>Workout Timer - Monday Week 1</title>
+    <title>Tuesday – Low-Impact Cardio</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,11 +21,6 @@
         #timer, #overall-timer {
             font-size: 3rem;
             margin: 20px 0;
-        }
-        #up-next {
-            font-size: 1.5rem;
-            margin: 20px 0;
-            color: #555;
         }
         #progress-container {
             width: 80%;
@@ -70,8 +66,8 @@
 </head>
 <body>
 
+    <h1>Tuesday – Low-Impact Cardio</h1>
     <div id=""exercise"">Press Start to Begin</div>
-
     <div id=""timer"">00:00</div>
 
     <div id=""progress-container"">
@@ -79,54 +75,44 @@
     </div>
 
     <div id=""overall-timer"">Total Time Left: 00:00</div>
-
-    <div id=""up-next"">Up Next: --</div>
-
     <button class=""start-btn"" onclick=""startWorkout()"">Start Workout</button>
     <button class=""pause-btn"" onclick=""pauseResumeWorkout()"">Pause</button>
     <button class=""next-btn"" onclick=""skipToNextExercise()"">Next</button>
     <button class=""stop-btn"" onclick=""stopWorkout()"">Stop</button>
 
     <script>
-        // Monday Week 1 Workout Plan
         const workoutPlan = [
-            { exercise: ""Warm-Up (Jumping Jacks)"", duration: 60, type: ""active"" },
-            { exercise: ""Rest"", duration: 30, type: ""rest"" },
-
-            { exercise: ""Bodyweight Squats"", duration: 45, type: ""active"" },
-            { exercise: ""Rest"", duration: 30, type: ""rest"" },
-
-            { exercise: ""Push-Ups (Knees if needed)"", duration: 45, type: ""active"" },
-            { exercise: ""Rest"", duration: 30, type: ""rest"" },
-
-            { exercise: ""Bent Over Rows (Dumbbells/Resistance Band)"", duration: 45, type: ""active"" },
-            { exercise: ""Rest"", duration: 30, type: ""rest"" },
-
-            { exercise: ""Plank Hold"", duration: 45, type: ""active"" },
-            { exercise: ""Rest"", duration: 30, type: ""rest"" },
-
-            { exercise: ""Glute Bridges"", duration: 45, type: ""active"" },
-            { exercise: ""Rest"", duration: 30, type: ""rest"" },
-
-            { exercise: ""Mountain Climbers"", duration: 45, type: ""active"" },
-            { exercise: ""Rest"", duration: 30, type: ""rest"" },
-
-            { exercise: ""Cool-Down (Stretch)"", duration: 60, type: ""active"" }
+            {""exercise"": ""March in Place"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Arm Swings"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Torso Twists"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""High Knees"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Jumping Jacks"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Mountain Climbers"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Bodyweight Lunges"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Rest"", ""duration"": 60, ""type"": ""rest""},
+            {""exercise"": ""High Knees"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Jumping Jacks"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Mountain Climbers"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Bodyweight Lunges"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Rest"", ""duration"": 60, ""type"": ""rest""},
+            {""exercise"": ""High Knees"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Jumping Jacks"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Mountain Climbers"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Bodyweight Lunges"", ""duration"": 60, ""type"": ""active""},
+            {""exercise"": ""Rest"", ""duration"": 60, ""type"": ""rest""},
+            {""exercise"": ""Deep Breathing and Stretching"", ""duration"": 180, ""type"": ""active""}
         ];
 
         let currentIndex = 0;
         let timeLeft = 0;
         let totalDuration = 0;
-        let overallTimeLeft = 0;
+        let overallTimeLeft = workoutPlan.reduce((sum, ex) => sum + ex.duration, 0);
         let timerInterval = null;
         let isPaused = false;
 
-        // Calculate Total Workout Time
-        const totalWorkoutTime = workoutPlan.reduce((sum, exercise) => sum + exercise.duration, 0);
-
         function startWorkout() {
             currentIndex = 0;
-            overallTimeLeft = totalWorkoutTime;
+            overallTimeLeft = workoutPlan.reduce((sum, ex) => sum + ex.duration, 0);
             nextExercise();
         }
 
@@ -135,7 +121,6 @@
             document.getElementById(""exercise"").innerText = ""Workout Stopped"";
             document.getElementById(""timer"").innerText = ""00:00"";
             document.getElementById(""overall-timer"").innerText = ""Total Time Left: 00:00"";
-            document.getElementById(""up-next"").innerText = ""Up Next: --"";
             document.getElementById(""progress-bar"").style.width = ""0%"";
             document.body.style.backgroundColor = ""#f4f4f4"";
             isPaused = false;
@@ -148,15 +133,7 @@
                 timeLeft = current.duration;
                 totalDuration = current.duration;
 
-                // Background Color
                 document.body.style.backgroundColor = current.type === ""active"" ? ""#4CAF50"" : ""#f44336"";
-
-                // Update ""Up Next""
-                if (currentIndex + 1 < workoutPlan.length) {
-                    document.getElementById(""up-next"").innerText = ""Up Next: "" + workoutPlan[currentIndex + 1].exercise;
-                } else {
-                    document.getElementById(""up-next"").innerText = ""Up Next: --"";
-                }
 
                 updateTimer();
                 timerInterval = setInterval(updateTimer, 1000);
@@ -165,7 +142,6 @@
                 document.getElementById(""timer"").innerText = ""00:00"";
                 document.getElementById(""overall-timer"").innerText = ""Total Time Left: 00:00"";
                 document.getElementById(""progress-bar"").style.width = ""100%"";
-                document.body.style.backgroundColor = ""#4CAF50"";
                 alert(""Great job! You finished the workout."");
             }
         }
@@ -181,7 +157,6 @@
                     const overallSecs = overallTimeLeft % 60;
                     document.getElementById(""overall-timer"").innerText = `Total Time Left: ${String(overallMins).padStart(2, '0')}:${String(overallSecs).padStart(2, '0')}`;
 
-                    // Progress Bar
                     const progressPercent = ((totalDuration - timeLeft) / totalDuration) * 100;
                     document.getElementById(""progress-bar"").style.width = `${progressPercent}%`;
 
@@ -215,4 +190,5 @@
     </script>
 
 </body>
-</html>"
+</html>
+"
