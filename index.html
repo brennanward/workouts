@@ -55,7 +55,7 @@
         <option value="week4">Week 4</option>
     </select>
 
-    <h2 id="week-dates"></h2>
+    <h2 id="week-dates">Feb 24 - Feb 28</h2>
 
     <div class="day-buttons">
         <button id="monday-btn" onclick="goToWorkout('monday')">Monday</button>
@@ -81,12 +81,16 @@
             const week = document.getElementById("week-select").value;
             const selectedWeek = weekDates[week];
             const weekStart = selectedWeek.start;
+            const weekEnd = selectedWeek.end;
+
+            // Update heading with actual week range
+            document.getElementById("week-dates").innerText = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
 
             // Update buttons with day names and dates
             dayNames.forEach((day, index) => {
                 const btn = document.getElementById(`${day}-btn`);
                 const workoutDay = new Date(weekStart);
-                workoutDay.setDate(workoutDay.getDate() + index);
+                workoutDay.setDate(weekStart.getDate() + index);  // Fixed date offset
                 const formattedDate = formatDate(workoutDay);
 
                 btn.innerText = `${dayLabels[index]} (${formattedDate})`;
