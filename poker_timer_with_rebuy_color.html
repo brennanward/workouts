@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Tournament Timer</title>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #1e1e1e; 
+            color: white;
+            transition: background-color 0.5s;
+        }
+        h1 { color: #f4b400; font-size: 3em; margin-bottom: 10px; }
+        #time_remaining { 
+            font-size: 6em; 
+            font-weight: bold; 
+            color: #ffffff;
+            margin: 20px 0;
+            display: block;
+        }
+        .blinds { 
+            display: flex; 
+            justify-content: center; 
+            font-size: 2.5em; 
+            font-weight: bold; 
+            margin: 20px 0; 
+        }
+        .blinds span { padding: 0 20px; }
+        .info { 
+            margin: 20px auto; 
+            font-size: 1.8em; 
+            padding: 20px; 
+            border-radius: 10px; 
+            width: 50%; 
+            font-weight: bold;
+            transition: background-color 0.5s;
+        }
+        .rebuy-active { background: #007BFF; color: white; }
+        .rebuy-ended { background: gray; color: white; }
+        button { 
+            padding: 15px; 
+            margin: 10px; 
+            font-size: 1.2em; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            transition: 0.3s;
+        }
+        .start { background: #4CAF50; color: white; }
+        .pause { background: #f44336; color: white; }
+        .reset { background: #2196F3; color: white; }
+        .next-round { background: #FF9800; color: white; }
+        button:hover { opacity: 0.8; }
+        #warning { background-color: red !important; }
+    </style>
+</head>
+<body>
+    <h1>Round <span id="current_round">1</span></h1>
+    <span id="time_remaining">15:00</span>
+    <div class="blinds">
+        <span>Big Blind: <span id="big_blind">20</span></span>
+        <span>Small Blind: <span id="small_blind">10</span></span>
+    </div>
+    <div id="rebuy_status_box" class="info rebuy-active">
+        <p>Rebuy Period: <span id="rebuy_status">Active</span></p>
+    </div>
+    <button class="start" onclick="startTimer()">Start</button>
+    <button class="pause" onclick="pauseTimer()">Pause</button>
+    <button class="reset" onclick="resetTimer()">Reset</button>
+    <button class="next-round" onclick="nextRound()">Next Round</button>
+
+    <audio id="chime" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+
+    <script>
+        let blindLevels = [
+            [10, 20, 15],
+            [20, 40, 15],
+            [30, 60, 15],
+            [50, 100, 15],
+            ["BREAK", "BREAK", 10], // 10-minute break after round 4
+            [100, 200, 15],
+            [200, 400, 15],
+            [300, 600, 15],
+            [500, 1000, 15],
+            [1000, 2000, 10],
+            [2000, 4000, 10]
+        ];
+
+        let currentLevel = 0;
+        let timeRemaining = blindLevels[currentLevel][2] * 60;
+        let timerInterval = null;
+
+        function updateDisplay() {
+            document.getElementById('current_round').innerText = (blindLevels[currentLevel][0] === "BREAK") ? "BREAK" : currentLevel + 1;
+            document.getElementById('time_remaining').innerText = new Date(timeRemaining * 1000).toISOString().substr(14, 5);
+            
+            if (blindLevels[currentLevel][0] === "BREAK") {
+                document.getElementById('small_blind').innerText = "-";
+                document.getElementById('big_blind').innerText = "-";
+            } else {
+                document.getElementById('small_blind').innerText = blindLevels[currentLevel][0];
+                document.getElementById('big_blind').innerText = blindLevels[currentLevel][1];
+            }
+
+            let rebuyActive = currentLevel < 6;
+            document.getElementById('rebuy_status').innerText = rebuyActive ? "Active" : "Ended";
+            document.getElementById('rebuy_status_box').className = rebuyActive ? "info rebuy-active" : "info rebuy-ended";
+
+            // Change background color to red when 1 minute remains
+            if (timeRemaining <= 60) {
+                document.body.id = "warning";
+            } else {
+                document.body.id = "";
+            }
+        }
+
+        function startTimer() {
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    if (timeRemaining > 0) {
+                        timeRemaining--;
+                        updateDisplay();
+                    } else {
+                        playChime();
+                        nextRound();
+                    }
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            currentLevel = 0;
+            timeRemaining = blindLevels[currentLevel][2] * 60;
+            updateDisplay();
+        }
+
+        function nextRound() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            if (currentLevel < blindLevels.length - 1) {
+                currentLevel++;
+                timeRemaining = blindLevels[currentLevel][2] * 60;
+                updateDisplay();
+                startTimer();
+            }
+        }
+
+        function playChime() {
+            document.getElementById('chime').play();
+        }
+
+        updateDisplay();
+    </script>
+</body>
+</html>
