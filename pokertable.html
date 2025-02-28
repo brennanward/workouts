@@ -1,262 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poker Tournament Table & Timer</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            background-color: #2d2939;
-            background-image: url(https://raw.githubusercontent.com/brennanward/workouts/refs/heads/main/background.png);
-            background-blend-mode: overlay;
-            color: #f4efc2;
-        }
-        h1 { color: #f4b400; font-size: 2em; }
-        .table-container {
-          position: relative;
-        width: 500px;
-        height: 500px;
-        margin: 20px auto;
-        background-color: #723037;
-        background-image: radial-gradient(#aa6060, #220303);
-        border-radius: 50%;
-        border: 1px solid #ffffff;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poker Tournament Table & Timer</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #2d2939;
+      background-image: url(https://raw.githubusercontent.com/brennanward/workouts/refs/heads/main/background.png);
+      background-blend-mode: overlay;
+      color: #f4efc2;
+    }
+    h1 { color: #f4b400; font-size: 2em; }
+    .table-container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      margin: 100px auto;
+      background-color: #723037;
+      background-image: radial-gradient(#aa6060, #220303);
+      border-radius: 50%;
+      border: 1px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-blend-mode: overlay;
+      box-shadow: 0px 0px 150px #537170ba;
+    }
+    .seat {
+      position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 120px;
+        background-color: #f2f2f2db;
         display: flex
     ;
         align-items: center;
         justify-content: center;
-        background-blend-mode: overlay;
-        box-shadow: 0px 0px 150px #537170ba;
-        }
-        .seat {
-            position: absolute;
-            width: 120px;
-            height: 60px;
-            border-radius: 30px;
-            background-color: #1f2e4f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-weight: bold;
-            border: 2px solid white;
-            text-align: center;
-            font-size: 1.2em;
-        }
-        .dealer { background-color: #866700;
-    color: #000000;
-    background-image: radial-gradient(#ffdda8a8, transparent); }
-        .small-blind {     background-color: #02023e;
-    background-image: radial-gradient(#3a367c, transparent);}
-        .big-blind { background-color: #058713;
-    background-image: radial-gradient(#1f3c07, transparent);}
-        .chip-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
-        .chip {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            color: white;
-            margin: 0 10px;
-                border-style: dashed !important;
-        }
-        .white { background: white; color: black; border: 2px solid black; }
-        .blue { background: blue; }
-        .green { background: green; }
-        .red { background: red; }
-        .black { background: black; }
-        .button-container { margin-top: 50px; }
-        button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            background-color: #7f7f7f;
-            opacity: .5;
-            color: black;
-        }
-        button:hover { background-color: #d89c00; }
-        .timer-container {
-            position: absolute;
-            width: 300px;
-            height: 180px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .timer-time {
-            font-size: 3em;
-            font-weight: bold;
-        }
-        .timer-round {
-            font-size: 1.5em;
-        }
-        .blinds {
-            font-size: 1.3em;
-        }
-    </style>
+        color: #220f0f;
+        font-weight: bold;
+        border: 2px solid white;
+        text-align: center;
+        font-size: 1.2em;
+        box-shadow: 0px 0px 15px 5px #00000066;
+    }
+    .dealer {
+      background-color: #3a2e0a;
+      color: #ffffff;
+      background-image: radial-gradient(#b17d04de, transparent);
+    }
+    .small-blind {
+      background-color: #02023e;
+      background-image: radial-gradient(#3a367c, transparent);
+      color:white;
+    }
+    .big-blind {
+      background-color: #058713;
+      background-image: radial-gradient(#1f3c07, transparent);
+      color:white;
+
+    }
+    .remove {
+      cursor: pointer;
+      color: #ffffff66;
+      margin-left: 5px;
+      font-size: small;
+      position: absolute;
+      /* top: 5%; */
+      bottom: 5%;
+
+  }
+    .chip-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 150px;
+      margin-bottom: 20px;
+    }
+    .chip {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: white;
+      margin: 0 10px;
+      border-style: dashed !important;
+    }
+    .white { background: white; color: black; border: 2px solid black; }
+    .blue { background: blue; }
+    .green { background: green; }
+    .red { background: red; }
+    .black { background: black; }
+    .button-container { margin-top: 50px; }
+    button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      background-color: #7f7f7f;
+      opacity: .5;
+      color: black;
+    }
+    button:hover { background-color: #d89c00; }
+    .timer-container {
+      position: absolute;
+      width: 300px;
+      height: 180px;
+      background-color: rgba(0, 0, 0, 0.0);
+      color: white;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .timer-time { font-size: 7em; font-weight: bold; }
+    .timer-round { font-size: 1.5em; }
+    .blinds { font-size: 2em;color: #ffffff57; font-weight: 900}
+
+    .smblindtext{font-size: 12px;
+    position: absolute;
+    /* bottom: 0%; */
+    top: -15%;
+    background: #a2dfdd;
+    border-radius: 100%;
+    height: 25px;
+    width: 35px;
+    z-index: 1;
+    border: 2px solid #ffffff;
+    padding-top: 10px;
+    vertical-align: middle;
+    /* margin-top: 10px; */
+    /* display: inline-block; */
+    color: #000;
+    padding-bottom: 0px;}
+
+    .bigblindtext{font-size: 12px;
+    position: absolute;
+    /* bottom: 0%; */
+    top: -15%;
+    background: #aff499;
+    border-radius: 100%;
+    height: 25px;
+    width: 35px;
+    z-index: 1;
+    border: 2px solid #ffffff;
+    padding-top: 10px;
+    vertical-align: middle;
+    /* margin-top: 10px; */
+    /* display: inline-block; */
+    color: #000;
+    padding-bottom: 0px;}
+
+    .dealertext{font-size: 12px;
+    position: absolute;
+    /* bottom: 0%; */
+    top: -15%;
+    background: #e5c92e;
+    border-radius: 100%;
+    height: 25px;
+    width: 35px;
+    z-index: 1;
+    border: 2px solid #ffffff;
+    padding-top: 10px;
+    vertical-align: middle;
+    /* margin-top: 10px; */
+    /* display: inline-block; */
+    color: #000;
+    padding-bottom: 0px;}
+
+    /* Modal overlay styles */
+#seatPromptModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;  /* Hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#seatPromptModal .modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Optional: blur/darken the main content */
+.main-content.blurred {
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+/* Highlight the seat being edited (overriding the blur) */
+.highlight {
+  filter: none !important;
+  z-index: 1100;
+}
+  </style>
 </head>
 <body>
-    <img src="https://raw.githubusercontent.com/brennanward/workouts/refs/heads/main/logo1.png" style="width:35%;"/>
-    <div class="table-container">
-        <div class="seat" id="seat1" style="top: -4%; left: 40%;">Brennan</div>
-        <div class="seat" id="seat2" style="top: 15%; left: 80%;">Rickey</div>
-        <div class="seat" id="seat3" style="top: 45%; left: 90%;">CJ</div>
-        <div class="seat" id="seat4" style="top: 75%; left: 80%;">Adam</div>
-        <div class="seat" id="seat5" style="top: 94%; left: 40%;">Michael</div>
-        <div class="seat" id="seat6" style="top: 75%; left: 0%;">Paschall</div>
-        <div class="seat" id="seat7" style="top: 45%; left: -10%;">Justin</div>
-        <div class="seat" id="seat8" style="top: 15%; left: 0%;">Zack</div>
+  <div class="main-content">
+  <img src="https://raw.githubusercontent.com/brennanward/workouts/refs/heads/main/logo1.png" style="width:35%;" />
+  <div class="table-container">
+    <div class="seat" id="seat1" style="top: -20%; left: 40%;"></div>
+    <div class="seat" id="seat2" style="top: 0%; left: 85%;"></div>
+    <div class="seat" id="seat3" style="top: 40%; left: 99%;"></div>
+    <div class="seat" id="seat4" style="top: 80%; left: 85%;"></div>
+    <div class="seat" id="seat5" style="top: 100%; left: 40%;"></div>
+    <div class="seat" id="seat6" style="top: 80%; left: -5%;"></div>
+    <div class="seat" id="seat7" style="top: 40%; left: -20%;"></div>
+    <div class="seat" id="seat8" style="top: 0%; left: -5%;"></div>
 
-        <div class="timer-container">
-            <div class="timer-round">Round <span id="current_round">1</span></div>
-            <div class="timer-time" id="time_remaining">20:00</div>
-            <div class="blinds">Blinds: <span id="small_blind">10</span> / <span id="big_blind">20</span></div>
-        </div>
+    <div class="timer-container">
+      <div class="timer-round">Round <span id="current_round">1</span></div>
+      <div class="timer-time" id="time_remaining">20:00</div>
+      <div class="blinds">Blinds: <span id="small_blind">10</span> / <span id="big_blind">20</span></div>
     </div>
+  </div>
 
-    <div class="chip-container">
-        <div class="chip white">10</div>
-        <div class="chip blue">20</div>
-        <div class="chip green">50</div>
-        <div class="chip red">100</div>
-        <div class="chip black">500</div>
-    </div>
-    <div class="button-container">
-        <button onclick="nextHand()">Next Hand</button>
-        <button onclick="startTimer()">Start Timer</button>
-        <button onclick="pauseTimer()">Pause Timer</button>
-        <button onclick="resetTimer()">Reset Timer</button>
-        <button onclick="nextRound()">Next Round</button>
-    </div>
+  <div class="chip-container">
+    <div class="chip white">10</div>
+    <div class="chip blue">20</div>
+    <div class="chip green">50</div>
+    <div class="chip red">100</div>
+    <div class="chip black">500</div>
+  </div>
+  <div class="button-container">
+    <button onclick="nextHand()">Next Hand</button>
+    <button onclick="startTimer()">Start Timer</button>
+    <button onclick="pauseTimer()">Pause Timer</button>
+    <button onclick="resetTimer()">Reset Timer</button>
+    <button onclick="nextRound()">Next Round</button>
+  </div>
+</div>
+  <script>
 
-    <script>
-        let seats = ["Brennan", "Rickey", "CJ", "Adam", "Michael", "Paschall", "Justin", "Zack"];
-        let dealerIndex = 0;
-        let smallBlindIndex = 1;
-        let bigBlindIndex = 2;
+  // Prompt for player names for each of the 8 seats.
+function promptSeats() {
+  for (let i = 0; i < seats.length; i++) {
+    let defaultName = seats[i] || "";
+    let name = prompt("Enter player name for seat " + (i + 1), defaultName);
+    seats[i] = (name && name.trim() !== "") ? name.trim() : null;
+  }
+}
+    // Fixed seat positions: an array of 8 seats (null indicates an empty seat)
+    let seats = ["Player 1", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6", "Player 7", "Player 8"];
+    let dealerIndex = 0;
+    let smallBlindIndex = 1;
+    let bigBlindIndex = 2;
 
-        let blindLevels = [
-            [10, 20, 20],
-            [20, 40, 20],
-            [30, 60, 15],
-            [50, 100, 15],
-            ["BREAK", "BREAK", 10],
-            [100, 200, 12],
-            [200, 400, 10],
-            [300, 600, 8],
-            [500, 1000, 6],
-            [1000, 2000, 5],
-            [2000, 4000, 5]
-        ];
+    // Returns the number of active (non-eliminated) players.
+    function activePlayersCount() {
+      return seats.filter(player => player !== null).length;
+    }
 
-        let currentLevel = 0;
-        let timeRemaining = blindLevels[currentLevel][2] * 60;
-        let timerInterval = null;
+    // Returns the first active player.
+    function getFirstActivePlayer() {
+      for (let i = 0; i < seats.length; i++) {
+        if (seats[i] !== null) return seats[i];
+      }
+      return null;
+    }
 
-        function updateTable() {
-            seats.forEach((name, index) => {
-                let seatElement = document.getElementById("seat" + (index + 1));
-                seatElement.classList.remove("dealer", "small-blind", "big-blind");
+    // Finds the next seat index (wrapping around) that is not eliminated.
+    function getNextActiveIndex(current) {
+      let next = (current + 1) % seats.length;
+      while (seats[next] === null) {
+        next = (next + 1) % seats.length;
+      }
+      return next;
+    }
 
-                if (index === dealerIndex) {
-                    seatElement.classList.add("dealer");
-                    seatElement.innerText = name + " (D)";
-                } else if (index === smallBlindIndex) {
-                    seatElement.classList.add("small-blind");
-                    seatElement.innerText = name + " (SB)";
-                } else if (index === bigBlindIndex) {
-                    seatElement.classList.add("big-blind");
-                    seatElement.innerText = name + " (BB)";
-                } else {
-                    seatElement.innerText = name;
-                }
-            });
+    function updateTable() {
+      // Loop through all 8 fixed seats.
+      for (let i = 0; i < seats.length; i++) {
+        let seatElement = document.getElementById("seat" + (i + 1));
+        // If this seat is eliminated (null), leave it empty.
+        if (seats[i] === null) {
+          seatElement.style.display = "flex";
+          seatElement.innerHTML = ""; // or you could put "Empty"
+          seatElement.classList.remove("dealer", "small-blind", "big-blind");
+        } else {
+          let playerName = seats[i];
+          let role = "";
+          seatElement.classList.remove("dealer", "small-blind", "big-blind");
+          if (i === dealerIndex) {
+            role = " <span class='dealertext'>D</span>";
+            seatElement.classList.add("dealer");
+          } else if (i === smallBlindIndex) {
+            role = " <span class='smblindtext'>(SB)</span>";
+            seatElement.classList.add("small-blind");
+          } else if (i === bigBlindIndex) {
+            role = " <span class='bigblindtext'>BB</span>";
+            seatElement.classList.add("big-blind");
+          }
+          seatElement.style.display = "flex";
+          // Add an "✖" next to the name to allow elimination.
+          seatElement.innerHTML = `${playerName}${role} <span class="remove" onclick="eliminatePlayer('${playerName}')">✖</span>`;
         }
+      }
+      updateTimerDisplay(); // In case you want to refresh blind values, etc.
+    }
 
-        function nextHand() {
-            dealerIndex = (dealerIndex + 1) % seats.length;
-            smallBlindIndex = (smallBlindIndex + 1) % seats.length;
-            bigBlindIndex = (bigBlindIndex + 1) % seats.length;
-            updateTable();
+    function nextHand() {
+      if (activePlayersCount() < 3) {
+        alert("Game Over! Winner: " + getFirstActivePlayer());
+        return;
+      }
+      // Move dealer and blinds to the next active seats.
+      dealerIndex = getNextActiveIndex(dealerIndex);
+      smallBlindIndex = getNextActiveIndex(dealerIndex);
+      bigBlindIndex = getNextActiveIndex(smallBlindIndex);
+      updateTable();
+    }
+
+    function eliminatePlayer(name) {
+      // Find the seat index of the player.
+      let index = seats.indexOf(name);
+      if (index !== -1) {
+        seats[index] = null; // Mark this seat as empty.
+
+        // If the eliminated player held a role, update that role.
+        if (index === dealerIndex) {
+          dealerIndex = getNextActiveIndex(dealerIndex);
         }
-
-        function updateTimerDisplay() {
-            document.getElementById("current_round").innerText = (blindLevels[currentLevel][0] === "BREAK") ? "BREAK" : currentLevel + 1;
-            document.getElementById("time_remaining").innerText = new Date(timeRemaining * 1000).toISOString().substr(14, 5);
-
-            if (blindLevels[currentLevel][0] === "BREAK") {
-                document.getElementById("small_blind").innerText = "-";
-                document.getElementById("big_blind").innerText = "-";
-            } else {
-                document.getElementById("small_blind").innerText = blindLevels[currentLevel][0];
-                document.getElementById("big_blind").innerText = blindLevels[currentLevel][1];
-            }
+        if (index === smallBlindIndex) {
+          smallBlindIndex = getNextActiveIndex(smallBlindIndex);
         }
-
-        function startTimer() {
-            if (!timerInterval) {
-                timerInterval = setInterval(() => {
-                    if (timeRemaining > 0) {
-                        timeRemaining--;
-                        updateTimerDisplay();
-                    } else {
-                        nextRound();
-                    }
-                }, 1000);
-            }
+        if (index === bigBlindIndex) {
+          bigBlindIndex = getNextActiveIndex(bigBlindIndex);
         }
-
-        function pauseTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            currentLevel = 0;
-            timeRemaining = blindLevels[currentLevel][2] * 60;
-            updateTimerDisplay();
-        }
-
-        function nextRound() {
-            if (currentLevel < blindLevels.length - 1) {
-                currentLevel++;
-                timeRemaining = blindLevels[currentLevel][2] * 60;
-                updateTimerDisplay();
-                startTimer();
-            }
-        }
-
-        document.addEventListener("keydown", function(event) {
-            if (event.code === "Space") {
-                nextHand();
-            }
-        });
-
         updateTable();
+      }
+    }
+
+    // Timer functions remain unchanged.
+    let blindLevels = [
+      [10, 20, 20], [20, 40, 20], [30, 60, 15], [50, 100, 15], ["BREAK", "BREAK", 10],
+      [100, 200, 12], [200, 400, 10], [300, 600, 8], [500, 1000, 6], [1000, 2000, 5],
+      [2000, 4000, 5]
+    ];
+    let currentLevel = 0;
+    let timeRemaining = blindLevels[currentLevel][2] * 60;
+    let timerInterval = null;
+
+    function updateTimerDisplay() {
+      document.getElementById("current_round").innerText = (blindLevels[currentLevel][0] === "BREAK") ? "BREAK" : currentLevel + 1;
+      document.getElementById("time_remaining").innerText = new Date(timeRemaining * 1000).toISOString().substr(14, 5);
+
+      if (blindLevels[currentLevel][0] === "BREAK") {
+        document.getElementById("small_blind").innerText = "-";
+        document.getElementById("big_blind").innerText = "-";
+      } else {
+        document.getElementById("small_blind").innerText = blindLevels[currentLevel][0];
+        document.getElementById("big_blind").innerText = blindLevels[currentLevel][1];
+      }
+    }
+
+    function startTimer() {
+      if (!timerInterval) {
+        timerInterval = setInterval(() => {
+          if (timeRemaining > 0) {
+            timeRemaining--;
+            updateTimerDisplay();
+          } else {
+            nextRound();
+          }
+        }, 1000);
+      }
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      currentLevel = 0;
+      timeRemaining = blindLevels[currentLevel][2] * 60;
+      updateTimerDisplay();
+    }
+
+    function nextRound() {
+      if (currentLevel < blindLevels.length - 1) {
+        currentLevel++;
+        timeRemaining = blindLevels[currentLevel][2] * 60;
         updateTimerDisplay();
-    </script>
+        startTimer();
+      }
+    }
+
+    // Allow using the space bar to move to the next hand.
+    document.addEventListener("keydown", function(event) {
+      if (event.code === "Space") {
+        nextHand();
+      }
+    });
+promptSeats();
+    updateTable();
+    updateTimerDisplay();
+  </script>
+
+  <div id="seatPromptModal">
+  <div class="modal-content">
+    <h2>Enter name for seat <span id="seatNumber"></span></h2>
+    <input type="text" id="seatInput" placeholder="Player name">
+    <button onclick="submitSeatName()">Submit</button>
+  </div>
+</div>
 </body>
 </html>
